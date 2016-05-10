@@ -3,6 +3,17 @@ Broker
 
 A fast UI for searching generic datasets.
 
+Example sites
+-------------
+
+- <a href="http://comics.nicksergeant.com">comics.nicksergeant.com</a>
+- <a href="http://gifs.nicksergeant.com">gifs.nicksergeant.com</a>
+- <a href="http://hops.nicksergeant.com">hops.nicksergeant.com</a>
+- <a href="http://isles.nicksergeant.com">isles.nicksergeant.com</a>
+- <a href="http://movies.nicksergeant.com">movies.nicksergeant.com</a>
+- <a href="http://showroom.nicksergeant.com">showroom.nicksergeant.com</a>
+- <a href="http://wine.nicksergeant.com">wine.nicksergeant.com</a>
+
 Install
 -------
 
