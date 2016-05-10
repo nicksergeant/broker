@@ -1,0 +1,19 @@
+<a ng-href="{{ view.item.link }}" class="item group">
+  <div ng-show="!view.item.image" class="image-container error"></div>
+  <div ng-show="view.item.image" class="image-container" ng-class="{ loaded: loaded() }">
+    <span class="image-placeholder" ng-show="view.item.image && loaded()"></span>
+    <img ng-show="false" image-on-load
+      ng-src="{{ view.item.image }}" />
+  </div>
+  <h2 style="max-height: 62px; overflow: hidden;">
+    {{ view.item.name }}
+  </h2>
+  <ul class="meta" style="padding: 0 15px; margin-top: -10px;">
+    <li class="category" style="list-style-type: none; white-space: nowrap; overflow: hidden;" ng-show="view.item.vintage || view.item.price">
+      <span ng-show="view.item.vintage">Year: {{ view.item.vintage }} | </span>
+      <span ng-show="view.item.price">Price: {{ view.item.price|currency }}</span>
+    </li>
+    <li class="category" style="list-style-type: none; white-space: nowrap; overflow: hidden;" ng-show="view.item.varietal">Varietal: {{ view.item.varietal }}</li>
+    <li class="category" style="list-style-type: none; white-space: nowrap; overflow: hidden;" ng-show="view.item.snoothrank != 'n/a'">SnoothRank: {{ view.item.snoothrank }}/5</li>
+  </ul>
+</a>

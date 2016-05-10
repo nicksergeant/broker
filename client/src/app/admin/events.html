@@ -1,0 +1,34 @@
+<table class="table table-bordered table-striped" ng-class="{ 'table-condensed': compact }">
+  <thead>
+    <tr>
+      <th ng-show="!eventsUser">User</th>
+      <th>Event</th>
+      <th>Value</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="event in events.resources|orderBy:'-created'|limitTo:limit || 50">
+      <td ng-show="!eventsUser">{{ event.user.email || event.user_id.split('-')[0] }}<span ng-show="!event.user"> (anonymous)</span></td>
+      <td>{{ event.label }}</td>
+      <td>
+        <a ng-show="event.url" href="{{ event.url }}">{{ event.value }}</a>
+        <span ng-show="!event.url && !event.search">{{ event.value }}</span>
+        <span ng-show="event.search">
+          <span ng-repeat="filter in event.search.filters">
+            <span ng-show="filter.type === 'select'">
+              {{ filter.title }}: {{ filter.value || 'All' }}
+              <span ng-show="!$last">|</span>
+            </span>
+            <span ng-show="filter.type === 'range'">
+              {{ filter.title }}: {{ filter.from|number }} &rarr; {{ filter.to|number }}
+              <span ng-show="!$last">|</span>
+            </span>
+          </span>
+          <span ng-show="event.search.query">| "{{ event.search.query }}"</span>
+        </span>
+      </td>
+      <td style="min-width: 200px;">{{ event.created|moment }}</td>
+    </tr>
+  </tbody>
+</table>

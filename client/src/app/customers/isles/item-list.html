@@ -1,0 +1,12 @@
+<a ng-href="{{ view.item.url }}" class="item group">
+  <div class="image-container" ng-class="{ loaded: loaded() }">
+    <span class="image-placeholder" ng-show="view.item.image && loaded()"></span>
+    <img ng-show="false" image-on-load
+      ng-src="{{ view.item.image }}" />
+  </div>
+  <h2 style="font-size: 28px; line-height: 28px; margin-bottom: 5px;">{{ view.item.strong }}</h2>
+  <ul class="meta" style="padding: 0 15px;">
+    <li style="white-space: nowrap; overflow: hidden;"><strong>Location:</strong> {{ view.item.top }}</li>
+    <li style="white-space: nowrap; overflow: hidden;"><strong>Price:</strong> {{ view.item.price != 0 ? view.item.em : 'Make request &raquo;' }}</li>
+  </ul>
+</a>

@@ -1,0 +1,16 @@
+<a ng-href="{{ view.item.url }}?aid=10762" class="item group">
+  <div class="image-container" ng-class="{ loaded: loaded() }">
+    <span class="image-placeholder" ng-show="view.item.performers[0].image && loaded()"></span>
+    <img ng-show="false" image-on-load
+      ng-src="{{ view.item.performers[0].image }}" />
+  </div>
+  <h2 style="font-size: 28px; line-height: 28px; margin-bottom: 5px;">{{ view.item.venue.name }}</h2>
+  <ul class="meta" style="padding: 0 15px;">
+    <li style="white-space: nowrap; overflow: hidden;"><strong>When:</strong>
+      {{ view.item.datetime_local|moment }}<span ng-show="!view.item.time_tbd"> at {{ view.item.datetime_local|moment:'h:mm a' }}</span>
+      <span ng-show="view.item.date_tbd || view.item.time_tbd">(estimated)</span>
+    </li>
+    <li style="white-space: nowrap; overflow: hidden;"><strong>Location:</strong> <span ng-show="view.item.venue.state">{{ view.item.venue.state }}, </span>{{ view.item.venue.country }}</li>
+    <li style="white-space: nowrap; overflow: hidden;" ng-show="view.item.stats.lowest_price"><strong>Lowest price: </strong> {{ view.item.stats.lowest_price|currency }}</li>
+  </ul>
+</a>

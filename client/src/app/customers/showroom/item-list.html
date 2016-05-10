@@ -1,0 +1,25 @@
+<a class="item group" ng-href="{{
+    env === 'production' ? 
+      ('http://www.jdoqocy.com/click-7164152-10364102?url=http%3A%2F%2Fwww.edmunds.com%2F' +
+        view.item.defaultStyle.make.niceName + '%2F' + view.item.niceName + '%2F' + view.item.defaultStyle.year.year + '%2F') :
+      (view.item.defaultStyle.make.niceName + '/' + view.item.niceName)
+    }}" target="{{ env === 'production' ? '_top' : '' }}">
+  <div class="image-container" ng-class="{ loaded: loaded() }">
+    <span class="image-placeholder" ng-show="view.item.defaultPhoto && loaded()"></span>
+    <img ng-show="false" image-on-load vehicle-thumb alt="{{ view.item.fullName }}"
+      ng-src="{{ view.item.defaultPhoto ? view.item.defaultPhoto.replace('http:', 'https:') + '_400.jpg' : '' }}" />
+  </div>
+  <h2>
+    {{ view.item.fullName }}
+  </h2>
+  <dl class="meta clearfix">
+    <div class="pull-left">
+      <dt>From</dt>
+      <dd><span class="sup">$</span>{{ view.item.msrp|number }}</dd>
+    </div>
+    <div class="pull-right">
+      <dt>MPG</dt>
+      <dd>{{ view.item.cityMPG }} <span>cty</span> {{ view.item.highwayMPG }} <span>hwy</span></dd>
+    </div>
+  </dl>
+</a>

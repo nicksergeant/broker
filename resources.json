@@ -1,0 +1,64 @@
+{
+  "css": [
+    "client/src/scss/style.css"
+  ],
+  "vendorcss": [
+    "client/vendor/semantic-ui/build/packaged/css/semantic.min.css",
+    "client/vendor/bootstrap/dist/css/bootstrap.min.css",
+    "client/vendor/jquery-ui/themes/smoothness/jquery-ui.min.css",
+    "client/vendor/swiper/dist/idangerous.swiper.css",
+    "client/vendor/nprogress/nprogress.css",
+    "client/vendor/select2/select2.css",
+    "client/vendor/nouislider/jquery.nouislider.css"
+  ],
+  "vendorjs": [
+    "client/vendor/jquery/dist/jquery.min.js",
+    "client/vendor/select2/select2.min.js",
+    "client/vendor/angular/angular.min.js",
+    "client/vendor-manual/Socialite/socialite.min.js",
+    "client/vendor/angular-route/angular-route.min.js",
+    "client/vendor/angular-ui-select2/src/select2.js",
+    "client/vendor/semantic-ui/build/packaged/javascript/semantic.min.js",
+    "client/vendor/bootstrap/dist/js/bootstrap.min.js",
+    "client/vendor/epixa-resource/src/resource.js",
+    "client/vendor/jquery-ui/ui/minified/jquery-ui.min.js",
+    "client/vendor/momentjs/min/moment.min.js",
+    "client/vendor/swiper/dist/idangerous.swiper.js",
+    "client/vendor/underscore/underscore.js",
+    "client/vendor/nprogress/nprogress.js",
+    "client/vendor/crossfilter/crossfilter.min.js",
+    "client/vendor/nouislider/jquery.nouislider.min.js",
+    "client/vendor/fastclick/lib/fastclick.js"
+  ],
+  "js": [
+    "client/src/app/app.js",
+    "client/src/app/customers/gifs/init.js",
+    "client/src/app/customers/gifs/directives.js",
+    "client/src/app/customers/showroom/init.js",
+    "client/src/app/customers/showroom/services.js",
+    "client/src/app/customers/showroom/routes.js",
+    "client/src/app/admin/init.js",
+    "client/src/app/admin/directives.js",
+    "client/src/app/admin/routes.js",
+    "client/src/app/events/init.js",
+    "client/src/app/events/services.js",
+    "client/src/app/home/init.js",
+    "client/src/app/home/routes.js",
+    "client/src/app/search/init.js",
+    "client/src/app/search/routes.js",
+    "client/src/app/search/filters.js",
+    "client/src/app/search/directives.js",
+    "client/src/app/users/init.js",
+    "client/src/app/users/services.js",
+    "client/src/app/users/routes.js",
+    "client/src/app/utils/init.js",
+    "client/src/app/utils/directives.js",
+    "client/src/app/utils/filters.js"
+  ],
+  "html": [
+    "client/src/base.ejs"
+  ],
+  "scss": [
+    "client/src/scss/style.scss"
+  ]
+}

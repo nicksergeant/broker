@@ -1,0 +1,473 @@
+[
+  { "name": "comics",
+    "title": "Comics.is",
+    "domains": [
+      "comics.local.broker.is",
+      "comics.broker.is"
+    ],
+    "analytics": {
+      "gauges": {
+        "id": "533473cb8bfdf74044001885"
+      }
+    },
+    "feed": true,
+    "users": {
+      "loginRequired": false
+    },
+    "items": {
+      "label": ["comic", "comics"],
+      "orderBy": [
+        {
+          "id": "title",
+          "name": "Title",
+          "field": "title"
+        }
+      ]
+    },
+    "fields": [
+      "id",
+      "title",
+      "urls",
+      "images",
+      "startYear",
+      "thumbnail",
+      "comics",
+      "format"
+    ],
+    "searchFields": [
+      "title",
+      "startYear"
+    ],
+    "filters": [
+      {
+        "id": "startyear",
+        "name": "startYear",
+        "title": "Start year",
+        "dataType": "integer",
+        "type": "range",
+        "field": "startYear",
+        "min": 1930,
+        "max": 2015,
+        "from": 1930,
+        "to": 2015,
+        "step": 1
+      }
+    ]
+  },
+  { "name": "gifs",
+    "title": "GIFs",
+    "custom": true,
+    "feed": true,
+    "analytics": {
+      "gauges": {
+        "id": "5384e027e32bb402d9004265"
+      }
+    },
+    "domains": [
+      "gifs.nicksergeant.com",
+      "gifs.broker.is",
+      "gifs.local.broker.is",
+      "gifs.is"
+    ],
+    "items": {
+      "orderBy": [
+        {
+          "id": "random",
+          "name": "Random",
+          "field": "random"
+        },
+        {
+          "id": "filename",
+          "name": "Filename",
+          "field": "filename"
+        }
+      ]
+    },
+    "fields": [
+      "id",
+      "filename",
+      "extension",
+      "source",
+      "thumb",
+      "url"
+    ],
+    "searchFields": [
+      "filename"
+    ],
+    "users": false,
+    "filters": [
+      {
+        "id": "source",
+        "name": "source:fromValues",
+        "title": "Source",
+        "type": "singleSelect",
+        "field": "source",
+        "widget": "select2"
+      },
+      {
+        "id": "type",
+        "name": "extension:fromValues",
+        "title": "File Type",
+        "type": "singleSelect",
+        "field": "extension"
+      }
+    ]
+  },
+  { "name": "gigs",
+    "title": "Gigs.is",
+    "domains": [
+      "*.gigs.local.broker.is",
+      "*.gigs.broker.is"
+    ],
+    "analytics": {
+      "gauges": {
+        "id": "5323d091eddd5b4f8e000785"
+      }
+    },
+    "feed": "http://api.seatgeek.com/2/events?per_page=10000&performers.slug={{ slug }}",
+    "feedArray": "events",
+    "users": {
+      "loginRequired": false
+    },
+    "items": {
+      "label": ["gig", "gigs"],
+      "orderBy": [
+        {
+          "id": "venue",
+          "name": "Venue",
+          "field": "venue.name"
+        }
+      ]
+    },
+    "searchFields": [
+      "venue.name",
+      "venue.state",
+      "venue.country"
+    ],
+    "filters": [
+      {
+        "id": "lowestprice",
+        "name": "lowestprice",
+        "title": "Lowest price",
+        "dataType": "integer",
+        "type": "range",
+        "field": "stats.lowest_price",
+        "min": 0,
+        "max": 1000,
+        "from": 0,
+        "to": 1000,
+        "step": 1
+      },
+      {
+        "id": "state",
+        "name": "venue.state:fromValues",
+        "title": "State",
+        "type": "singleSelect",
+        "field": "venue.state",
+        "widget": "select2"
+      }
+    ]
+  },
+  { "name": "hops",
+    "title": "Hops.is",
+    "analytics": {
+      "gauges": {
+        "id": "531f253d8bfdf757bf004287"
+      }
+    },
+    "domains": [
+      "hops.local.broker.is",
+      "hops.broker.is"
+    ],
+    "feed": true,
+    "users": {
+      "loginRequired": false,
+      "mentors": true
+    },
+    "items": {
+      "label": ["beer", "beers"],
+      "orderBy": [
+        {
+          "id": "name",
+          "name": "Name",
+          "field": "name"
+        }
+      ]
+    },
+    "fields": [
+      "id",
+      "style",
+      { "labels": "large" },
+      "name",
+      "brewery"
+    ],
+    "searchFields": [
+      "brewery",
+      "style",
+      "name"
+    ],
+    "filters": [
+      {
+        "id": "style",
+        "name": "style:fromValues",
+        "title": "Style",
+        "type": "singleSelect",
+        "field": "style",
+        "widget": "select2"
+      }
+    ]
+  },
+  { "name": "isles",
+    "title": "Isles",
+    "domains": [
+      "isles.nicksergeant.com",
+      "isles.local.broker.is"
+    ],
+    "analytics": {
+      "gauges": {
+        "id": "53272ced8bfdf769fb0012be"
+      }
+    },
+    "users": {
+      "loginRequired": false
+    },
+    "items": {
+      "label": ["island", "islands"],
+      "orderBy": [
+        {
+          "id": "name",
+          "name": "Name",
+          "field": "strong"
+        },
+        {
+          "id": "price",
+          "name": "Price",
+          "field": "price"
+        }
+      ]
+    },
+    "searchFields": [
+      "strong",
+      "top",
+      "country"
+    ],
+    "feed": true,
+    "filters": [
+      {
+        "id": "country",
+        "name": "country:fromValues",
+        "title": "Location",
+        "type": "singleSelect",
+        "field": "country"
+      },
+      {
+        "id": "price",
+        "name": "price",
+        "title": "Price",
+        "dataType": "currency",
+        "type": "range",
+        "field": "price",
+        "min": 0,
+        "max": 5000000,
+        "from": 0,
+        "to": 5000000,
+        "step": 100000
+      }
+    ]
+  },
+  { "name": "movies",
+    "title": "Movies",
+    "domains": [
+      "movies.broker.is",
+      "movies.local.broker.is",
+      "movies.is"
+    ],
+    "analytics": {
+      "gauges": {
+        "id": "531f394d8bfdf7581d0040ff"
+      }
+    },
+    "backendSearch": true,
+    "backendSearchURL": "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=CHANGEME&page_limit=50",
+    "backendSearchArray": "movies",
+    "users": {
+      "loginRequired": false
+    },
+    "items": {
+      "label": ["movie", "movies"],
+      "orderBy": [
+        {
+          "id": "audience-rating",
+          "name": "Audience Rating",
+          "field": "ratings.audience_score"
+        }
+      ]
+    },
+    "searchFields": [],
+    "filters": [
+      {
+        "id": "year",
+        "name": "year",
+        "title": "Year",
+        "dataType": "integer",
+        "type": "range",
+        "field": "year",
+        "min": 1900,
+        "max": 2014,
+        "from": 1910,
+        "to": 2014,
+        "step": 1
+      }
+    ]
+  },
+  { "name": "showroom",
+    "title": "Showroom",
+    "custom": true,
+    "analytics": {
+      "gauges": {
+        "id": "4f51599cf5a1f5084700000b"
+      },
+      "google": {
+        "id": "UA-514462-74",
+        "domain": "showroom.is"
+      }
+    },
+    "tracking": {
+      "ignoreUrls": [
+        "/\\w+/\\w+/"
+      ]
+    },
+    "domains": [
+      "showroom.broker.is",
+      "showroom.local.broker.is",
+      "showroom.nicksergeant.com"
+    ],
+    "users": {
+      "loginRequired": false
+    },
+    "templates": {
+      "minHeight": 2083
+    },
+    "items": {
+      "label": ["vehicle", "vehicles"],
+      "orderBy": [
+        {
+          "id": "model",
+          "name": "Model",
+          "field": "fullName"
+        }
+      ]
+    },
+    "searchFields": [
+      "fullName",
+      "category",
+      "features"
+    ],
+    "fields": [
+      "id",
+      { "defaultStyle": { "make": ["name", "niceName"], "year": true }},
+      "features",
+      "name",
+      "niceName",
+      "msrp",
+      "cityMPG",
+      "highwayMPG",
+      "category",
+      "fullName",
+      "slug",
+      "defaultPhoto"
+    ],
+    "filters": [
+      {
+        "id": "msrp",
+        "name": "msrp",
+        "dataType": "currency",
+        "title": "MSRP",
+        "type": "range",
+        "field": "msrp",
+        "min": 0,
+        "max": 100000,
+        "from": 0,
+        "to": 100000,
+        "step": 1000
+      },
+      {
+        "id": "mpg",
+        "name": "mpg",
+        "dataType": "number",
+        "title": "MPG",
+        "type": "range",
+        "field": "highwayMPG",
+        "min": 0,
+        "max": 100,
+        "from": 0,
+        "to": 100,
+        "step": 1
+      },
+      {
+        "id": "type",
+        "name": "category:fromValues",
+        "title": "Type",
+        "type": "singleSelect",
+        "field": "category"
+      }
+    ]
+  },
+  { "name": "wine",
+    "title": "Wine",
+    "analytics": {
+      "gauges": {
+        "id": "53207fcce32bb44952004a95"
+      }
+    },
+    "domains": [
+      "wine.broker.is",
+      "wine.local.broker.is"
+    ],
+    "backendSearch": true,
+    "backendSearchURL": "http://api.snooth.com/wines/?akey=CHANGEME&n=30",
+    "backendSearchArray": "wines",
+    "users": {
+      "loginRequired": false
+    },
+    "items": {
+      "label": ["wine", "wines"],
+      "orderBy": [
+        {
+          "id": "snoothrank",
+          "name": "SnoothRank",
+          "field": "snoothrank"
+        }
+      ]
+    },
+    "searchFields": [],
+    "filters": [
+      {
+        "id": "price",
+        "name": "price",
+        "title": "Price",
+        "dataType": "currency",
+        "type": "range",
+        "field": "price",
+        "min": 0,
+        "max": 200,
+        "from": 5,
+        "to": 100,
+        "step": 1
+      },
+      {
+        "id": "year",
+        "name": "year",
+        "title": "Year",
+        "dataType": "integer",
+        "type": "range",
+        "field": "vintage",
+        "min": 1990,
+        "max": 2014,
+        "from": 1995,
+        "to": 2014,
+        "step": 1
+      }
+    ]
+  }
+]

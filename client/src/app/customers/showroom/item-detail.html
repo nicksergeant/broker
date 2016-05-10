@@ -1,0 +1,101 @@
+<section class="container">
+  <div class="col-md-12">
+    <h2>{{ item.defaultStyle.make.name }} {{ item.name }}</h2>
+    <div class="panel" style="margin-top: 20px; overflow: scroll; padding: 10px;">
+      <code style="white-space: normal;">
+        <a ng-click="showStyles = !showStyles">Styles</a>
+        <ul ng-show="showStyles">
+          <li ng-repeat="style in item.styles.resources">
+            <a ng-click="show = !show">{{ style.year.year }} {{ style.name }}</a>
+            <ul ng-show="show">
+              <li>
+                <a ng-click="showColors = !showColors">Colors</a>
+                <ul ng-show="showColors">
+                  <li ng-repeat="color in style.colors.colors">
+                    <strong>{{ color.category }}:</strong>
+                    <ul>
+                      <li ng-repeat="color in color.options">
+                        <strong>{{ color.name }}</strong> {{ color }}
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a ng-click="showOptions = !showOptions">Options</a>
+                <ul ng-show="showOptions">
+                  <li ng-repeat="option in style.options.options">
+                    <strong>{{ option.category }}:</strong>
+                    <ul>
+                      <li ng-repeat="opt in option.options">
+                        <em style="font-weight: bold;">{{ opt.name }}</em>: {{ opt }}
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a ng-click="showPhotos = !showPhotos">Edmunds Photos</a>
+                <ul ng-show="showPhotos">
+                  <li ng-repeat="photos in style.photos.photos">
+                    <strong>{{ photos.captionTranscript }}:</strong>
+                    <ul>
+                      <li ng-repeat="url in photos.photoSrcs">
+                        <a href="http://media.ed.edmunds-media.com{{ url }}">http://media.ed.edmunds-media.com{{ url }}</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a ng-click="showTmv = !showTmv">TMV (true-market value)</a>
+                <ul ng-show="showTmv">
+                  <li ng-repeat="(key, val) in style.tmv.tmv">
+                    <strong>{{ key }}:</strong> {{ val }}
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </code>
+      <br />
+      <code>
+        <a ng-click="showFuelPhotos = !showFuelPhotos">Fuel Photos</a>
+        <ul ng-show="showFuelPhotos">
+          <li ng-repeat="fphoto in item.fuelPhotos.fuelphotos">
+            <a ng-click="showTrim = !showTrim"><strong>{{ fphoto.trim }}</strong></a>
+            <ul ng-show="showTrim">
+              <li>
+                <a ng-click="showStills = !showStills"><strong>Stills</strong></a>
+                <ul ng-show="showStills">
+                  <li ng-repeat="format in fphoto.products[0].productFormats">
+                    {{ format.name }}:
+                    <ul>
+                      <li ng-repeat="photo in format.assets">
+                        <a href="{{ photo.url }}">{{ photo.url }}</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a ng-click="showColored = !showColored"><strong>Colored</strong></a>
+                <ul ng-show="showColored">
+                  <li ng-repeat="format in fphoto.products[1].productFormats">
+                    {{ format.name }}:
+                    <ul>
+                      <li ng-repeat="photo in format.assets">
+                        <a href="{{ photo.url.replace('http', 'https') }}">{{ photo.url.replace('http', 'https') }}</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </code>
+    </div>
+  </div>
+</section>

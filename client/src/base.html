@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="broker" app>
+<head>
+
+  <title ng-bind="title ? title + ' - ' + (customer.title || 'Broker') : (customer.title || 'Broker')">
+    <%- customerRaw.title || 'Broker' %>
+  </title>
+
+  <meta charset="utf-8" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <script type="text/javascript">
+    <% if (items) { %>window.items = <%- items %>;<% } %>
+    <% if (customer) { %>window.customer = <%- customer %>;<% } %>
+    <% if (message) { %>window.message = '<%- message %>';<% } %>
+    <% if (user) { %>window.user_id = '<%- user.id %>';<% } %>
+    <% if (env) { %>window.env = '<%- env %>';<% } %>
+  </script>
+
+  <% if (env === 'production') { %>
+    <link rel="stylesheet" type="text/css" href="/client/broker.css?<%= cssModifiedTime %>" />
+    <script type="text/javascript" src="/client/broker.js?<%= jsModifiedTime %>"></script>
+  <% } else { %>
+    <% for (file in resources.vendorcss) { %>
+      <link rel="stylesheet" type="text/css" href="/<%= resources.vendorcss[file] %>" />
+    <% } for (file in resources.css) { %>
+      <link rel="stylesheet" type="text/css" href="/<%= resources.css[file] %>" />
+    <% } %>
+    <% for (file in resources.vendorjs) { %>
+      <script type="text/javascript" src="/<%= resources.vendorjs[file] %>"></script>
+    <% } for (file in resources.js) { %>
+      <script type="text/javascript" src="/<%= resources.js[file] %>"></script>
+    <% } %>
+  <% } %>
+  <% if (customerRaw.templates && customerRaw.templates.css) { %>
+    <link rel="stylesheet" type="text/css" href="/client/src/app/customers/<%- customerRaw.name %>/style.css" />
+  <% } %>
+  <% if (customerRaw.templates && customerRaw.templates.js) { %>
+    <script type="text/javascript" src="/client/src/app/customers/<%- customerRaw.name %>/script.js"></script>
+  <% } %>
+
+  <!--[if lt IE 9]>
+    <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
+
+  <% if (locals.headHtml) { %>
+    <%- headHtml %>
+  <% } %>
+
+</head>
+
+<body ng-class="bodyClass" ng-cloak <% if (customer === 'false') { %> class="home"<% } %>>
+  <div class="customer-container" ng-if="customer.templates.header">
+    <ng-include src="'/client/src/app/customers/' + customer.name + '/header.html'"></ng-include>
+  </div>
+  <div class="container-fluid" ng-if="!customer.templates.header && customer">
+    <header class="main row">
+      <div class="logo col-md-3 col-sm-3 col-xs-3">
+        <a class="logo" href="/" title="Home - {{ customer.title || 'Broker' }}">
+          <img ng-src="/client/src/assets/img/logo-{{ customer.name || 'broker' }}.png"
+            title="Home - {{ customer.title || 'Broker' }}"
+            alt="Home - {{ customer.title || 'Broker' }}" />
+        </a>
+      </div>
+      <nav class="clearfix pull-right" ng-show="customer && customer.users">
+        <a ng-show="false" class="nav" ng-class="{ active: $location.path() == '/' }" href="/">{{ customer.items.label[1] }}</a>
+        <div class="login" ng-show="user">
+          {{ user.email }}
+        </div>
+        <div ng-show="user" class="avatar"
+          ng-style="{'background-image':'url(' + user.gravatarUrl + ')'}">
+        </div>
+        <a target="_self" ng-show="user" href="/logout">
+          Log out
+        </a>
+        <a href="/admin" ng-show="user.isAdmin">
+          Admin
+        </a>
+        <a href="/login" ng-show="!user_id">
+          Log in
+        </a>
+        <a href="/signup" ng-show="!user_id && !customer.users.signupDisabled">
+          Sign up
+        </a>
+      </nav>
+    </header>
+  </div>
+  <div class="main" ng-view></div>
+  <% if (customerRaw && customerRaw.name === 'showroom') { %>
+    <div class="container-fluid" ng-show="!item">
+      <hr />
+      <footer class="main row">
+        <form class="email-signup" method="post" action="https://showroom.createsend.com/t/d/s/ws/">
+          <input placeholder="Sign up for email updates..." type="email" name="cm-ws-ws" id="search-query" value="">
+          <button type="submit" class="submit"></button>
+        </form>
+        <nav class="twitter-facebook">
+          <ul>
+            <li>
+              <a mixpanel-link type="homepage" class="first edmunds" href="http://www.jdoqocy.com/click-7164152-10364102?url=http%3A%2F%2Fwww.edmunds.com%2F">
+                <img alt="Data provided by Edmunds.com" src="/client/src/assets/img/edmunds_api150x30va.png" />
+              </a>
+              <img src="https://www.ftjcfx.com/image-7164152-10364102" width="1" height="1" border="0"/>
+            </li>
+            <li>
+              <a class="twitter" href="http://twitter.com/showrm">Twitter</a>
+            </li>
+            <li>
+              <a class="last facebook" href="http://facebook.com/showrm">Facebook</a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
+    </div>
+  <% } %>
+
+  <% if (env === 'production') { %>
+    <script type="text/javascript">
+      <% if (!customerRaw) { %>
+        var _gauges = _gauges || [];
+        (function() {
+          var t   = document.createElement('script');
+          t.type  = 'text/javascript';
+          t.async = true;
+          t.id    = 'gauges-tracker';
+          t.setAttribute('data-site-id', '52a0c4efe32bb425ba000404');
+          t.src = '//secure.gaug.es/track.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(t, s);
+        })();
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-46241128-1', 'broker.is');
+        ga('send', 'pageview');
+      <% } else { %>
+        <% if (customerRaw.analytics && customerRaw.analytics.gauges) { %>
+          var _gauges = _gauges || [];
+          (function() {
+            var t   = document.createElement('script');
+            t.type  = 'text/javascript';
+            t.async = true;
+            t.id    = 'gauges-tracker';
+            t.setAttribute('data-site-id', '<%- customerRaw.analytics.gauges.id %>');
+            t.src = '//secure.gaug.es/track.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(t, s);
+          })();
+        <% } %>
+        <% if (customerRaw.analytics && customerRaw.analytics.google) { %>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          ga('create', '<%- customerRaw.analytics.google.id %>', '<%- customerRaw.analytics.google.domain %>');
+          ga('send', 'pageview');
+        <% } %>
+      <% } %>
+    </script>
+    <% if (customerRaw.analytics && customerRaw.analytics.sharpSpring) { %>
+      <!-- SharpSpring Form for PXB Contact  -->
+      <script type="text/javascript">
+        var ss_form = {'account': '<%- customerRaw.analytics.sharpSpring.account %>', 'formID': '<%- customerRaw.analytics.sharpSpring.formId %>'};
+        ss_form.width = '100%';
+        ss_form.height = '1000';
+        ss_form.domain = 'app-<%- customerRaw.analytics.sharpSpring.domainId %>.sharpspring.com';
+        // ss_form.hidden = {'Company': 'Anon'}; // Modify this for sending hidden variables, or overriding values
+      </script>
+      <script type="text/javascript" src="https://koi-<%- customerRaw.analytics.sharpSpring.domainId %>.sharpspring.com/client/form.js?ver=1.1.1"></script>
+    <% } %>
+  <% } else { %>
+    <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+  <% } %>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<a track-item-visit ng-mouseover="showPreview = true" ng-mouseleave="showPreview = false" item data-extension="{{ view.item.extension }}" ng-href="{{ view.item.urlEncoded }}" class="item group" style="height: 240px;">
+  <div class="image-container loaded" style="background-color: black; border-bottom: 1px solid #DEE2E3;">
+    <span ng-if="view.item.thumbEncoded" style="min-height: 179px;
+           display: block;
+           background-repeat: no-repeat;
+           background-size: auto 100%;
+           background-position: center center;"
+           ng-style="{'background-image':'url(' + view.item.thumbEncoded + ')'}">
+      <span ng-if="previewUrl && view.item.extension == 'gif'" ng-if="view.item.extension == 'gif'" style="min-height: 179px;
+             display: block;
+             background-repeat: no-repeat;
+             background-size: auto 100%;
+             background-position: center center;"
+             ng-style="{'background-image':'url(' + previewUrl + ')'}">
+       </span>
+     </span>
+  </div>
+  <h2 style="overflow: hidden; white-space: nowrap; position: relative; padding-right: 60px; text-overflow: ellipsis;">
+    {{ view.item.filename.split('.')[0] }}
+    <span style="color: #AAA; font-family: 'Open Sans'; font-size: 14px; text-align: right; position: absolute; top: 0; right: 0; width: 60px; text-overflow: ellipsis; overflow: hidden;">{{ view.item.source }}</span>
+  </h2>
+</a>

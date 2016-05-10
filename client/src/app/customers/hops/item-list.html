@@ -1,0 +1,17 @@
+<a href="#" class="item group no-link" ng-click="toTop()">
+  <div ng-show="!view.item.labels.large" class="image-container error"></div>
+  <div ng-show="view.item.labels.large" class="image-container" ng-class="{ loaded: loaded() }">
+    <span class="image-placeholder" ng-show="view.item.labels.large && loaded()"></span>
+    <img ng-show="false" image-on-load
+      ng-src="{{ view.item.labels.large }}" />
+  </div>
+  <h2 style="max-height: 62px; overflow: hidden;">{{ view.item.name }}</h2>
+  <ul class="meta" style="padding: 0 15px; margin-top: -10px;">
+    <li class="category" style="list-style-type: none;" ng-show="view.item.abv || view.item.ibu">
+      <span ng-show="view.item.abv"><strong>ABV:</strong> {{ view.item.abv }}</span>
+      <span ng-show="view.item.ibu"><strong>IBU:</strong> {{ view.item.ibu }}</span>
+    </li>
+    <li class="category" style="white-space: nowrap; overflow: hidden;"><strong>Brewery:</strong> {{ view.item.brewery }}</li>
+    <li class="category" style="white-space: nowrap; overflow: hidden;" ng-show="view.item.style"><strong>Style:</strong> {{ view.item.style }}</li>
+  </ul>
+</a>

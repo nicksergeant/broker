@@ -1,0 +1,207 @@
+<section class="search container-fluid">
+  <div class="row">
+    <aside class="search col-md-3 col-sm-3" ng-class="{ shown: mobileFiltersShown }">
+      <div class="filters">
+        <div class="filter search query">
+          <h4>Search</h4>
+          <form method="get"
+            items-search
+            ng-hide="!items || $location && $location.path().indexOf('/admin') !== -1"
+            action="/"
+            id="search"
+            name="search">
+              <div class="control-group">
+                <input ng-model="$root.query"
+                  placeholder="Search{{ customer.items.label ? ' ' + customer.items.label[1] : null }}..."
+                  type="text"
+                  name="q"
+                  class="form-control"
+                  id="search-query" />
+              </div>
+          </form>
+        </div>
+        <div ng-repeat="filter in customer.filters"
+            ng-if="filter.visibility != 'hidden'"
+            ng-show="(customer.feed && rawItems.length) || !customer.feed"
+            ng-hide="filter.extra == true && !showExtraFilters"
+            class="filter clearfix {{ filter.id }} {{ filter.type }}">
+          <h4>{{ filter.title }}</h4>
+          <div ng-if="filter.type == 'range'">
+            <div class="info">
+              <span class="from"><span ng-show="filter.dataType == 'currency'" class="sup">$</span><span ng-show="filter.dataType == 'integer'">{{ filter.from }}</span><span ng-show="filter.dataType != 'integer'">{{ filter.from|number }}</span>
+              </span> - <span class="to"><span ng-show="filter.dataType == 'currency'" class="sup">$</span><span ng-show="filter.dataType == 'integer'">{{ filter.to }}</span><span ng-show="filter.dataType != 'integer'">{{ filter.to|number }}</span><span ng-show="filter.to == filter.max">+</span>
+              </span>
+            </div>
+            <div slider
+              class="slider"
+              min="filter.from"
+              max="filter.to"
+              totalmin="filter.min"
+              totalmax="filter.max"
+              step="filter.step">
+            </div>
+          </div>
+          <div ng-if="filter.type == 'boolean'">
+            <select ui-select2 ng-model="filter.value">
+              <option value="">Any</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </div>
+          <div ng-if="filter.type == 'singleSelect'">
+            <div ng-if="!filter.widget">
+              <div class="checkbox">
+                <label for="{{ filter.id }}-all">
+                  <input id="{{ filter.id }}-all" type="radio" ng-model="filter.value" value="" />
+                  All
+                </label>
+              </div><div class="checkbox" ng-repeat="option in filter.options|orderBy:'toString()'">
+                <label for="{{ filter.id }}-{{ option }}">
+                  <input id="{{ filter.id }}-{{ option }}" type="radio" ng-model="filter.value" value="{{ option }}" />
+                  <span ng-show="filter.field !== 'published'">{{ option|capitalize }}</span>
+                  <span ng-show="filter.field === 'published'">{{ option|date:'mediumDate' }}</span>
+                </label>
+              </div>
+            </div>
+            <div ng-if="filter.widget == 'select2'">
+              <select ui-select2 ng-model="filter.value">
+                <option value="">All</option>
+                <option ng-repeat="option in filter.options" value="{{ option }}">{{ option }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="extra-filters" ng-show="customer.items.withExtraFilters" style="margin-bottom: -20px;">
+        <a class="handle" ng-show="!showExtraFilters" ng-click="showExtraFilters = true">
+          Refine search
+          <span style="margin-left: 5px;" class="glyphicon glyphicon-circle-arrow-down"></span>
+        </a>
+        <a class="handle" ng-show="showExtraFilters" ng-click="showExtraFilters = false; toTop();">
+          Collapse extra filters
+          <span style="margin-left: 5px;" class="glyphicon glyphicon-circle-arrow-up"></span>
+        </a>
+      </div>
+      <div class="mobile-toggle" ng-class="{ 'with-extra-filters': customer.items.withExtraFilters }">
+        <a class="handle" ng-click="mobileFiltersShown = false; toTop();">
+          Hide filters
+          <span style="margin-left: 5px;" class="glyphicon glyphicon-circle-arrow-up"></span>
+        </a>
+      </div>
+    </aside>
+    <a class="handle show-filters" ng-click="mobileFiltersShown = true" ng-show="!mobileFiltersShown">
+      Show filters
+      <span style="margin-left: 5px;" class="glyphicon glyphicon-circle-arrow-down"></span>
+    </a>
+    <section class="col-md-9 col-sm-9 items">
+      <div class="header row">
+        <div class="pre-baked-searches col-md-4 col-sm-4 col-xs-6" style="padding-left: 0;">
+          <button ng-show="customer.preBakedSearches"
+            class="btn btn-default"
+            style="margin-right: 8px;"
+            ng-click="loadPreBakedSearch(preBakedSearch)"
+            ng-repeat="preBakedSearch in customer.preBakedSearches">
+            {{ preBakedSearch.name }}
+          </button>
+          <button ng-show="customer.items.exportable"
+            class="btn btn-default export btn-primary"
+            style="margin-right: 8px;"
+            data-toggle="modal"
+            data-target="#export-items" 
+            ng-disabled="!selectedItems.length">
+            Export <span ng-show="selectedItems.length">{{ selectedItems.length }}</span> items
+          </button>
+          <span ng-show="customer.items.exportable">Select:</span>
+          <a ng-show="customer.items.exportable"
+            style="margin-right: 8px;"
+            data-toggle="modal"
+            ng-click="selectAllItems()">
+            All
+          </a>
+          <a ng-show="customer.items.exportable"
+            style="margin-right: 8px;"
+            data-toggle="modal"
+            ng-click="selectedItems = []">
+            None
+          </a>
+        </div>
+        <div class="results col-md-4 col-sm-4 col-xs-4 hidden-xs" style="font-weight: bold; text-align: center; margin-top: 6px;">
+          <span ng-show="filteredItemsCount != rawItems.length">{{ filteredItemsCount }} results of {{ rawItems.length }}</span>
+          <span ng-show="filteredItemsCount == rawItems.length">{{ rawItems.length }} results</span>
+        </div>
+        <div class="sort col-md-4 col-sm-4 col-xs-6" style="padding-right: 0;" ng-class="{ 'no-pre-baked-searches': !customer.preBakedSearches.length }">
+          <div class="pull-right">
+            <form class="form-inline">
+              <label style="margin-right: 10px;">Sort by:</label>
+              <select class="form-control" ng-model="orderBy" ng-options="option.name for option in orderOptions"></select>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="sub-header row" ng-show="customer.name === 'CHANGEME'">
+        <ul>
+          <li ng-show="query">
+            Query: <span>&ldquo;{{ query }}&rdquo;</span>
+          </li>
+          <li ng-repeat="filter in customer.filters" ng-show="filter.value != ''">
+            {{ filter.title }}:
+            <span ng-class="{ 'false': filter.value == 'false' }">{{ filter.value }}</span>
+          </li>
+        </ul>
+      </div>
+      <div ng-repeat="view in filteredItemsViews" ng-show="!searching && (view.item.id || view.item.id)">
+        <ng-include src="'/client/src/app/customers/' + customer.name + '/item-list.html'" />
+      </div>
+      <div ng-show="!searching && customer.backendSearch && !rawItems.length" class="loading">
+        <h1 ng-show="!query">Enter a search query.</h1>
+        <h1 ng-show="query">No results found.</h1>
+      </div>
+      <div ng-show="searching || (customer.feed && !rawItems.length)" class="loading">
+        <h1>Loading...</h1>
+        <div class="progress progress-striped active">
+          <div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div ng-show="rawItems.length && !filteredItemsCount" class="loading">
+        <h1>No results.</h1>
+      </div>
+      <div class="pagination" ng-show="!searching && filteredItemsCount">
+        <ng-include src="'/client/src/app/search/pagination.html'" />
+      </div>
+    </section> 
+  </div>
+  <div ng-if="customer.items.exportable" class="modal fade" id="export-items">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="/api/items/export" method="post">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Export {{ selectedItems.length }} items</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              <a ng-click="selectAllExportableFields()" class="pull-right">Select all</a>
+              <a ng-click="selectNoExportableFields()" class="pull-right">Select none</a>
+              Select fields:
+            </p>
+            <div class="row fields">
+              <div class="form-group col-md-3 field" ng-repeat="field in exportableFields">
+                <label for="{{ field }}" class="control-label">
+                  <input name="fields[]" ng-model="exportFields[field]" id="{{ field }}" type="checkbox" value="{{ field }}" />
+                  {{ field }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer" style="margin-top: 0;">
+            <input type="hidden" class="text" value="{{ selectedItems }}" name="items">
+            <button type="submit" class="btn btn-success">Export</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

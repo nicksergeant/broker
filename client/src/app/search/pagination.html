@@ -1,0 +1,10 @@
+<div class="inner clearfix">
+  <button class="prev" ng-disabled="$root.currentPage == 0" ng-click="$root.currentPage=$root.currentPage - 1; toTop();">
+    ‹‹ previous
+  </button>
+  <span class="page">{{ $root.currentPage + 1 }} / {{ numberOfPages() }}</span>
+  <button class="next" ng-disabled="($root.currentPage + 1) >= numberOfPages()"
+    ng-click="$root.currentPage=$root.currentPage + 1; toTop();">
+    next ››
+  </button>
+</div>

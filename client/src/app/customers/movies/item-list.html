@@ -1,0 +1,16 @@
+<a ng-href="{{ view.item.links.alternate }}" class="item group">
+  <div ng-show="!view.item.posters.original" class="image-container error"></div>
+  <div ng-show="view.item.posters.original" class="image-container" ng-class="{ loaded: loaded() }">
+    <span class="image-placeholder" ng-show="view.item.posters.original && loaded()"></span>
+    <img ng-show="false" image-on-load
+      ng-src="{{ view.item.posters.original }}" />
+  </div>
+  <h2 style="max-height: 62px; overflow: hidden;">
+    {{ view.item.title }}
+  </h2>
+  <ul class="meta" style="padding: 0 15px; margin-top: -10px;">
+    <li class="category" style="list-style-type: none;" ng-show="view.item.year">Year: {{ view.item.year }}</li>
+    <li class="category" style="list-style-type: none;" ng-show="view.item.ratings.critics_score != -1">Rotten Tomatoes Critics: {{ view.item.ratings.critics_score }}%</li>
+    <li class="category" style="list-style-type: none;" ng-show="view.item.ratings.audience_score">Rotten Tomatoes Audience: {{ view.item.ratings.audience_score }}%</li>
+  </ul>
+</a>
