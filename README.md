@@ -20,7 +20,7 @@ Install
 1. Install [Node](http://nodejs.org/), [Vagrant](http://www.vagrantup.com/), [VirtualBox](https://www.virtualbox.org/), and [Bower](http://bower.io/).
 2. Clone this repository.
 4. `make vagrant`
-5. Grab a [beer](http://hops.is/).
+5. Grab a [beer](http://hops.nicksergeant.com/).
 6. Visit [http://local.broker.is:8080](http://local.broker.is:8080).
 
 If you'd like to create an initial admin user:
