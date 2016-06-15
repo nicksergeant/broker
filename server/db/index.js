@@ -3,7 +3,7 @@
 var r = require('rethinkdb');
 
 var db = r.connect({
-  host: 'localhost',
+  host: process.env.RETHINKDB_HOST || 'localhost',
   db: 'broker',
   port: 28015
 }).then(function(conn) {

@@ -32,6 +32,9 @@ app.use(compression());
 app.set('json spaces', 0);
 app.use(flash());
 
+// Static
+app.use('/client', express.static('./client'));
+
 // Server middleware.
 app.use(cookieParser('CHANGEME'));
 app.use(morgan(process.env.NODE_ENV === 'production' ? '' : 'dev'));
@@ -68,59 +71,55 @@ app.use(passport.session());
 app.use(customers.middleware.getCustomer);
 app.use(users.middleware.lastActive());
 
-require('./server/staticroutes')(app).then(function() {
+// Login and signup.
+app.get('/logout', users.routes.logoutLocal);
+app.post('/login', users.routes.loginLocal(passport));
+app.post('/signup', users.routes.signupLocal(passport));
 
-  // Login and signup.
-  app.get('/logout', users.routes.logoutLocal);
-  app.post('/login', users.routes.loginLocal(passport));
-  app.post('/signup', users.routes.signupLocal(passport));
+// Users API.
+app.get('/api/users/test', users.routes.signupLocal());
+app.get('/api/users', users.routes.list());
+app.post('/api/users', users.routes.create());
+app.get('/api/users/:id', users.routes.get());
+app.put('/api/users/:id', users.routes.update());
+app.delete('/api/users/:id', users.routes.delete());
+app.post('/api/users/reset-password', users.routes.resetPassword());
+app.post('/api/users/reset-password/confirm', users.routes.resetPasswordConfirm());
 
-  // Users API.
-  app.get('/api/users/test', users.routes.signupLocal());
-  app.get('/api/users', users.routes.list());
-  app.post('/api/users', users.routes.create());
-  app.get('/api/users/:id', users.routes.get());
-  app.put('/api/users/:id', users.routes.update());
-  app.delete('/api/users/:id', users.routes.delete());
-  app.post('/api/users/reset-password', users.routes.resetPassword());
-  app.post('/api/users/reset-password/confirm', users.routes.resetPasswordConfirm());
+// Events API.
+app.get('/api/events', events.routes.list());
+app.post('/api/events', events.routes.create());
+app.get('/api/users/:id/events', events.routes.getForUser());
 
-  // Events API.
-  app.get('/api/events', events.routes.list());
-  app.post('/api/events', events.routes.create());
-  app.get('/api/users/:id/events', events.routes.getForUser());
+// Items API.
+app.get('/api/items', items.routes.list());
+app.get('/api/items/:id', items.routes.get());
+app.get('/api/search', items.routes.search());
+app.post('/api/items/export', items.routes.exportItems());
 
-  // Items API.
-  app.get('/api/items', items.routes.list());
-  app.get('/api/items/:id', items.routes.get());
-  app.get('/api/search', items.routes.search());
-  app.post('/api/items/export', items.routes.exportItems());
+// Showroom items API.
+app.get('/api/styles/:id/colors', items.showroomRoutes.colorsList());
+app.get('/api/styles/:id/options', items.showroomRoutes.optionsList());
+app.get('/api/styles/:id/photos', items.showroomRoutes.photosList());
+app.get('/api/styles/:id/tmv', items.showroomRoutes.tmv());
+app.get('/api/items/:id/styles', items.showroomRoutes.stylesList());
+app.get('/api/items/:id/fuelPhotos', items.showroomRoutes.fuelPhotosList());
 
-  // Showroom items API.
-  app.get('/api/styles/:id/colors', items.showroomRoutes.colorsList());
-  app.get('/api/styles/:id/options', items.showroomRoutes.optionsList());
-  app.get('/api/styles/:id/photos', items.showroomRoutes.photosList());
-  app.get('/api/styles/:id/tmv', items.showroomRoutes.tmv());
-  app.get('/api/items/:id/styles', items.showroomRoutes.stylesList());
-  app.get('/api/items/:id/fuelPhotos', items.showroomRoutes.fuelPhotosList());
-
-  // Assorted routes.
-  app.get('/demo', function(req, res) {
-    res.render('app/customers/' + req.customer.name + '/demo', null);
+// Assorted routes.
+app.get('/demo', function(req, res) {
+  res.render('app/customers/' + req.customer.name + '/demo', null);
+});
+app.get('/embed', function(req, res) {
+  res.render('app/customers/' + req.customer.name + '/embed', {
+    searchUrl: req.protocol + '://' + req.host + (process.env.NODE_ENV !== 'production' ? ':3000' : '')
   });
-  app.get('/embed', function(req, res) {
-    res.render('app/customers/' + req.customer.name + '/embed', {
-      searchUrl: req.protocol + '://' + req.host + (process.env.NODE_ENV !== 'production' ? ':3000' : '')
-    });
-  });
-  app.get('/official.gif', compression(), function(req, res, next) {
-    res.sendfile('client/src/assets/img/official.gif');
-  });
+});
+app.get('/official.gif', compression(), function(req, res, next) {
+  res.sendfile('client/src/assets/img/official.gif');
+});
 
-  app.get('/*', require('./server/app')(app, sentry));
+app.get('/*', require('./server/app')(app, sentry));
 
-  db.then(function() {
-    app.listen(process.env.PORT || 3000, '0.0.0.0');
-  });
-
+db.then(function() {
+  app.listen(process.env.PORT || 3000, '0.0.0.0');
 });

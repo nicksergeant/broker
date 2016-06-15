@@ -3,10 +3,7 @@
 *.un~
 .vagrant
 /assets
-client/broker.css
-client/broker.js
 client/src/app/customers/gifs/thumbs/
-client/vendor
 config
 node_modules
 servers.json

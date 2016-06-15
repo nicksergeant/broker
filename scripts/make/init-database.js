@@ -6,7 +6,7 @@ var Q = require('q');
 var r = require('rethinkdb');
 
 var db = r.connect({
-  host: 'localhost',
+  host: process.env.RETHINKDB_HOST || 'localhost',
   port: 28015
 }).then(function(conn) {
 

@@ -9,7 +9,7 @@
     "client/vendor/swiper/dist/idangerous.swiper.css",
     "client/vendor/nprogress/nprogress.css",
     "client/vendor/select2/select2.css",
-    "client/vendor/nouislider/jquery.nouislider.css"
+    "client/vendor/nouislider/distribute/jquery.nouislider.min.css"
   ],
   "vendorjs": [
     "client/vendor/jquery/dist/jquery.min.js",
@@ -27,7 +27,7 @@
     "client/vendor/underscore/underscore.js",
     "client/vendor/nprogress/nprogress.js",
     "client/vendor/crossfilter/crossfilter.min.js",
-    "client/vendor/nouislider/jquery.nouislider.min.js",
+    "client/vendor/nouislider/distribute/jquery.nouislider.min.js",
     "client/vendor/fastclick/lib/fastclick.js"
   ],
   "js": [

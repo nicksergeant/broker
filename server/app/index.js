@@ -16,15 +16,18 @@ module.exports = function(app, sentry) {
     };
 
     var sanitizedCustomer = JSON.parse(JSON.stringify(req.customer));
-    var twilioEnabled = sanitizedCustomer.twilio ? true : false;
 
-    sanitizedCustomer.feed = sanitizedCustomer.feed ? (typeof(sanitizedCustomer.feed) === 'string' ? 'path' : true) : false;
-    delete sanitizedCustomer.domains;
-    delete sanitizedCustomer.twilio;
-    delete sanitizedCustomer.resetPasswordKey;
-    delete sanitizedCustomer.backendSearchURL;
+    if (sanitizedCustomer) {
+      var twilioEnabled = sanitizedCustomer.twilio ? true : false;
 
-    sanitizedCustomer.twilio = twilioEnabled;
+      sanitizedCustomer.feed = sanitizedCustomer.feed ? (typeof(sanitizedCustomer.feed) === 'string' ? 'path' : true) : false;
+      delete sanitizedCustomer.domains;
+      delete sanitizedCustomer.twilio;
+      delete sanitizedCustomer.resetPasswordKey;
+      delete sanitizedCustomer.backendSearchURL;
+
+      sanitizedCustomer.twilio = twilioEnabled;
+    }
 
     locals.customerRaw = sanitizedCustomer;
     locals.customer = JSON.stringify(sanitizedCustomer) || null;
