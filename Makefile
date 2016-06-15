@@ -33,7 +33,7 @@ items:
 	@node scripts/items-$(filter-out $@,$(customer)).js
 
 items-server:
-	@ssh deploy@i.nicksergeant.com -p 55555 'cd /var/www/broker; make items customer=$(filter-out $@,$(customer))'
+	@ssh dokku@dokku.nicksergeant.com run broker.nicksergeant.com make items customer=$(filter-out $@,$(customer))
 
 js: $(js_files)
 	@cat $(js_files) > client/broker.js
