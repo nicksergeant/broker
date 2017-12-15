@@ -51,7 +51,7 @@ sourcesSequence.then(function(sourcesNext) {
 // Nick.sg
 sourcesSequence.then(function(sourcesNext) {
   console.log('Getting nick.sg GIFs.');
-  request('http://nick.sg.s3.amazonaws.com/', function(err, response, body) {
+  request('https://s3.amazonaws.com/nick.sg/', function(err, response, body) {
     var parseString = require('xml2js').parseString;
     parseString(body, function(err, response) {
       var rawGifs = response.ListBucketResult.Contents;
@@ -61,7 +61,7 @@ sourcesSequence.then(function(sourcesNext) {
         if (extension !== 'ico' && extension !== 'html' && filename !== 's/') {
           gifs.push({
             filename: filename,
-            url: 'http://nick.sg/' + filename,
+            url: 'https://nick.sg/' + filename,
             thumb: '/client/src/app/customers/gifs/thumbs/nicksg/' + filename,
             extension: extension,
             source: 'nick.sg'
