@@ -52,7 +52,7 @@
     "q": "0.9.x",
     "q-io": "1.9.x",
     "raven": "~0.6.0",
-    "request": "~2.34.0",
+    "request": "~2.82.0",
     "rethinkdb": "^2.3.1",
     "twilio": "~1.4.0",
     "underscore": "~1.6.0",
