@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "analytics-node": "",
-    "angular": "~1.2.7",
+    "angular": "~1.6.9",
     "basic-auth": "^1.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.6.5",
