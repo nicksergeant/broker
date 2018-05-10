@@ -41,7 +41,7 @@
     "jsdom": "^1.0.0",
     "jshint": "^2.4.4",
     "moment": "~2.5.0",
-    "mongodb": "~2.0.0",
+    "mongodb": "~2.2.13",
     "morgan": "^1.2.3",
     "nconf": "~0.6.9",
     "node-uuid": "~1.4.1",
